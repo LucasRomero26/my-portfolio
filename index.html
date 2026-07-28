@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lucas Romero - AI/ML Engineer &amp; Fullstack Developer</title>
+<meta name="description" content="Portfolio of Lucas Romero, AI/ML Engineer and Fullstack Developer. Bridging intelligent systems with scalable web applications." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ RESET & TOKENS ============ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #050505;
+    --bg-elevated: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --text: #ffffff;
+    --text-muted: #a1a1aa;
+    --text-dim: #71717a;
+    --accent: #ffffff;
+    --accent-soft: rgba(255, 255, 255, 0.65);
+    --nav-height: 72px;
+    --radius: 20px;
+    --font-heading: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4,
+  .logo, .foot-logo,
+  .btn-cv, .btn-primary, .btn-ghost, .btn-sm,
+  .logo-card span, .hero .role, .tl-role {
+    font-family: var(--font-heading);
+  }
+
+  ::selection { background: rgba(255, 255, 255, 0.25); color: #fff; }
+
+  /* ============ WEBGL FLUID CANVAS ============ */
+  #fluid-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Subtle ambient monochrome gradients layered under content */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% -10%, rgba(255, 255, 255, 0.045), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 20%, rgba(255, 255, 255, 0.03), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 110%, rgba(255, 255, 255, 0.035), transparent 60%);
+  }
+
+  main, nav, footer { position: relative; z-index: 1; }
+
+  /* ============ NAVIGATION ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(20px, 5vw, 56px);
+    background: rgba(5, 5, 5, 0.35);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s ease;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .logo span {
+    background: linear-gradient(135deg, #ffffff, #8a8a8f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .logo::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    margin-left: 4px;
+    margin-top: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 40px);
+    list-style: none;
+  }
+
+  .nav-links a:not(.btn-cv) {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .nav-links a:not(.btn-cv)::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    width: 0%; height: 1px;
+    background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.2));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-links a:not(.btn-cv):hover { color: var(--text); }
+  .nav-links a:not(.btn-cv):hover::after { width: 100%; }
+  .nav-links a:not(.btn-cv).active {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .nav-links a:not(.btn-cv).active::after { width: 100%; }
+
+  .btn-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #050505;
+    text-decoration: none;
+    border-radius: 999px;
+    background: #f5f5f7;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .btn-cv:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Hamburger toggle (mobile only) */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .nav-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* Mobile dropdown menu */
+  .mobile-menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 24px 24px;
+    background: rgba(5, 5, 5, 0.88);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .mobile-menu a:not(.btn-cv) {
+    padding: 16px 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.25s ease, padding-left 0.25s ease;
+  }
+  .mobile-menu a:not(.btn-cv):hover { color: var(--text); padding-left: 10px; }
+  .mobile-menu a:not(.btn-cv).active {
+    color: var(--text);
+    font-weight: 600;
+    padding-left: 10px;
+    border-bottom-color: rgba(255, 255, 255, 0.35);
+  }
+  .mobile-menu .btn-cv {
+    margin-top: 18px;
+    justify-content: center;
+  }
+
+  /* ============ LAYOUT ============ */
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+
+  section { padding: clamp(50px, 8vh, 90px) 0; }
+
+  /* Section intros: giant ghost word behind a bold eyebrow + title */
+  .section-head {
+    position: relative;
+    padding-top: clamp(36px, 8vw, 72px);
+    margin-bottom: 28px;
+  }
+
+  .ghost {
+    position: absolute;
+    top: 0;
+    left: -0.04em;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(4rem, 13vw, 8.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.03);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.18);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .section-label {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 38px; height: 3px;
+    background: #ffffff;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: var(--nav-height);
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 9vw, 6.5rem);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    background: linear-gradient(180deg, #ffffff 30%, #a8a8ad 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .role {
+    margin-top: 22px;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-muted);
+  }
+  .hero .role .grad {
+    background: linear-gradient(90deg, #ffffff, #9a9aa0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+  .hero .role .sep { color: var(--text-dim); margin: 0 10px; }
+
+  .hero .value-prop {
+    margin-top: 26px;
+    max-width: 620px;
+    font-size: clamp(0.98rem, 1.8vw, 1.125rem);
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    margin-top: 44px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary, .btn-ghost {
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+  .btn-primary {
+    color: #050505;
+    background: #f5f5f7;
+    box-shadow: 0 0 28px rgba(255, 255, 255, 0.18);
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #ffffff; box-shadow: 0 0 44px rgba(255, 255, 255, 0.35); }
+  .btn-ghost {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-strong);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.45); }
+
+  /* Hero entrance animation: staggered fade-in-up */
+  .fade-item {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .fade-item:nth-child(1) { animation-delay: 0.15s; }
+  .fade-item:nth-child(2) { animation-delay: 0.35s; }
+  .fade-item:nth-child(3) { animation-delay: 0.55s; }
+  .fade-item:nth-child(4) { animation-delay: 0.75s; }
+  @keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll-reveal for sections */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============ ABOUT (compact) ============ */
+  #about .container { max-width: 860px; }
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    max-width: 680px;
+    margin-bottom: 18px;
+    text-wrap: pretty;
+  }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+
+  /* ============ EXPERIENCE (vertical timeline) ============ */
+  #experience .container { max-width: 860px; }
+
+  .timeline {
+    position: relative;
+    margin-top: 40px;
+    padding-left: 6px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 11px;
+    width: 1.5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.12) 30%, rgba(255, 255, 255, 0.12) 85%, transparent);
+  }
+
+  .tl-item {
+    position: relative;
+    padding: 0 0 52px 48px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible .tl-item { opacity: 1; transform: translateY(0); }
+  .reveal.visible .tl-item:nth-child(1) { transition-delay: 0.1s; }
+  .reveal.visible .tl-item:nth-child(2) { transition-delay: 0.25s; }
+  .reveal.visible .tl-item:nth-child(3) { transition-delay: 0.4s; }
+  .reveal.visible .tl-item:nth-child(4) { transition-delay: 0.55s; }
+  .tl-item:last-child { padding-bottom: 8px; }
+
+  /* Node dot */
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0a0a0c;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .tl-item:hover::before {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 18px rgba(255, 255, 255, 0.5);
+  }
+  .tl-item:first-child::before {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 14px rgba(255, 255, 255, 0.4);
+  }
+
+  .tl-period {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-item:first-child .tl-period {
+    color: #050505;
+    background: #f0f0f2;
+    border-color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+  }
+
+  .tl-role {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .tl-company {
+    font-size: 0.85rem;
+    color: var(--accent-soft);
+    margin-top: 2px;
+    margin-bottom: 12px;
+  }
+  .tl-item p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 620px;
+    margin-bottom: 16px;
+    text-wrap: pretty;
+  }
+
+  /* ============ SKILLS (logo cards) ============ */
+  .skills-category {
+    margin-top: 56px;
+  }
+  .skills-category h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .skills-category h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .logo-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 40px 20px 30px;
+    border-radius: var(--radius);
+    background: rgba(12, 12, 14, 0.72);
+    border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  }
+  .logo-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    width: 140%;
+    height: 80%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.07), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .logo-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(18, 18, 20, 0.8);
+    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 0 32px -8px rgba(255, 255, 255, 0.12);
+  }
+  .logo-card:hover::before { opacity: 1; }
+
+  /* Icons load in their original brand colors; a grayscale filter keeps
+     them monochrome at rest and hover reveals the true colors. */
+  .logo-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(1.7);
+    opacity: 0.8;
+    transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+  }
+  .logo-card:hover img {
+    opacity: 1;
+    transform: scale(1.12);
+    filter: grayscale(0%) brightness(1) drop-shadow(0 0 16px rgba(255, 255, 255, 0.25));
+  }
+
+  .logo-card span {
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  /* ============ PROJECTS — Asymmetrical / Offset Grid ============ */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 48px;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 24px;
+      align-items: start;
+    }
+    /* El toque premium: escalonar los elementos para que no estén al mismo nivel */
+    .projects-grid .project-card:nth-child(even) {
+      margin-top: 40px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .projects-grid {
+      gap: 48px 32px;
+    }
+    .projects-grid .project-card:nth-child(even) {
+      margin-top: 60px;
+    }
+  }
+
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    background: rgba(12, 12, 14, 0.72);
+    border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.45s ease,
+                box-shadow 0.45s ease;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.06), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 28px 64px -28px rgba(0, 0, 0, 0.9), 0 0 36px -12px rgba(255, 255, 255, 0.08);
+  }
+
+  .project-preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: #0a0a0c;
+  }
+  .project-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  }
+  .project-card:hover .project-preview img {
+    transform: scale(1.04);
+  }
+  .project-preview-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 255, 255, 0.06), transparent 70%),
+      linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%, rgba(255, 255, 255, 0.02) 100%);
+    transition: opacity 0.4s ease;
+  }
+  .project-preview:has(img) .project-preview-placeholder {
+    display: none;
+  }
+  .project-preview-placeholder span {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: rgba(255, 255, 255, 0.12);
+    transition: color 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project-card:hover .project-preview-placeholder span {
+    color: rgba(255, 255, 255, 0.22);
+    transform: scale(1.03);
+  }
+
+  .project-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 24px 26px 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+  .project-card:hover h3 { color: #ffffff; }
+
+  .project-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 20px;
+    text-wrap: pretty;
+    line-height: 1.6;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .tech-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px 7px 9px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project-card:hover .tech-item {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .tech-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+  .tech-item img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(100%) brightness(1.5);
+    opacity: 0.75;
+    transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+  }
+  .project-card:hover .tech-item img {
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+  }
+  .tech-item:hover img {
+    transform: scale(1.1);
+  }
+  .tech-item span {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 5px 12px;
+    border-radius: 999px;
+    color: #d4d4d8;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .timeline .tags { margin-bottom: 0; }
+
+  .project-actions { display: flex; gap: 12px; }
+  .btn-sm {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-sm.demo {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    color: #f5f5f7;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    font-weight: 700;
+    gap: 9px;
+    padding: 10px 14px;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+    animation: demoGlow 3s ease-in-out infinite;
+  }
+  .btn-sm.demo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.16) 50%,
+      transparent 62%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .btn-sm.demo > * { position: relative; z-index: 1; }
+  @keyframes demoGlow {
+    0%, 100% {
+      border-color: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      border-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 28px rgba(255, 255, 255, 0.22);
+    }
+  }
+  .btn-sm.demo .demo-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    background: #f5f5f7;
+    color: #050505;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+  }
+  .btn-sm.demo .demo-arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    opacity: 0.55;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  }
+  .btn-sm.demo:hover {
+    transform: translateY(-2px);
+    color: #050505;
+    background: #f5f5f7;
+    border-color: #ffffff;
+    animation: none;
+    box-shadow: 0 0 36px rgba(255, 255, 255, 0.38), 0 8px 24px -8px rgba(255, 255, 255, 0.45);
+  }
+  .btn-sm.demo:hover::before { transform: translateX(130%); }
+  .btn-sm.demo:hover .demo-icon-wrap {
+    background: #050505;
+    color: #f5f5f7;
+    transform: rotate(-6deg) scale(1.05);
+  }
+  .btn-sm.demo:hover .demo-arrow {
+    opacity: 1;
+    transform: translate(3px, -3px);
+  }
+  .btn-sm.gh {
+    flex: 0 0 auto;
+    width: 42px;
+    padding: 10px 0;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-sm.gh svg { display: block; }
+  .btn-sm.gh:hover { transform: translateY(-2px); color: var(--text); border-color: rgba(255, 255, 255, 0.35); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 0;
+    text-align: center;
+  }
+  footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  footer .foot-logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; }
+  footer .foot-logo span {
+    background: linear-gradient(135deg, #ffffff, #8a8a8f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  footer p { color: var(--text-dim); font-size: 0.82rem; font-family: var(--font-mono); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 960px) {
+    .projects-scroll .project-card {
+      flex: 0 0 calc(100% - 48px);
+      min-width: 280px;
+    }
+    .logo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    section { padding: 64px 0; }
+    .hero-cta {
+      width: 100%;
+      max-width: 340px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .btn-primary, .btn-ghost { display: block; width: 100%; }
+    .logo-grid { gap: 12px; }
+    .logo-card { padding: 30px 12px 24px; gap: 16px; }
+    .logo-card img { width: 46px; height: 46px; }
+    .logo-card span { font-size: 0.85rem; }
+    .project-body { padding: 20px 20px 24px; }
+    .tl-item { padding-left: 38px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fade-item, .reveal, .tl-item { animation: none; opacity: 1; transform: none; transition: none; }
+    .btn-sm.demo { animation: none; }
+    .projects-scroll { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fluid-canvas"></canvas>
+<div class="ambient"></div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <a href="#hero" class="logo">L<span>R</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li>
+      <a href="Lucas_Romero_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        View CV
+      </a>
+    </li>
+  </ul>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#projects">Projects</a>
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="Lucas_Romero_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    View CV
+  </a>
+</div>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <h1 class="fade-item">Lucas Romero</h1>
+    <p class="role fade-item">
+      <span class="grad">AI/ML Engineer</span><span class="sep">/</span>Fullstack Developer
+    </p>
+    <p class="value-prop fade-item">
+      I bridge the gap between intelligent systems and production-grade software,
+      turning state-of-the-art machine learning models into scalable, elegant web
+      applications that millions can rely on.
+    </p>
+    <div class="hero-cta fade-item">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#about" class="btn-ghost">More About Me</a>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS (selected work first: proof before story) ============ -->
+  <section id="projects">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="ghost" aria-hidden="true">Work</span>
+        <p class="section-label">Projects</p>
+        <h2 class="section-title">Selected work.</h2>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+                <div class="project-preview">
+                  <img src="KillaAssistant.png" alt="KillaAssistant preview" loading="lazy" />
+                  <div class="project-preview-placeholder" aria-hidden="true"><span>KillaAssistant</span></div>
+                </div>
+                <div class="project-body">
+                  <h3>KillaAssistant</h3>
+                  <p>Multi-tenant AI assistant over Telegram & WhatsApp. Each user brings their own LLM keys and Google account; the backend orchestrates up to <strong>5 tool-calling rounds</strong> against NVIDIA NIM (Llama 3.1) for Calendar & Drive. Keys and OAuth tokens are encrypted with <strong>AES-256-GCM</strong>, voice notes transcribed via Groq Whisper, and a prompt-injection sanitizer filters instruction-override patterns before any LLM call.</p>
+                  <div class="tech-stack" aria-label="Technologies used">
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" loading="lazy" /><span>Next.js</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/fastify/ffffff" alt="" loading="lazy" /><span>Fastify</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/typescript" alt="" loading="lazy" /><span>TypeScript</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/supabase" alt="" loading="lazy" /><span>Supabase</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/nvidia" alt="" loading="lazy" /><span>NVIDIA NIM</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/docker" alt="" loading="lazy" /><span>Docker</span></div>
+                  </div>
+                  <div class="project-actions">
+                    <a href="https://killa-assistant.vercel.app" class="btn-sm demo" target="_blank" rel="noopener noreferrer"><span class="demo-icon-wrap" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>Live Demo<svg class="demo-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                    <a href="https://github.com/LucasRomero26/killa-assistant" class="btn-sm gh" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                  </div>
+                </div>
+              </article>
+
+            <article class="project-card">
+                <div class="project-preview">
+                  <img src="EpiGuard.png" alt="EpiGuard preview" loading="lazy" />
+                  <div class="project-preview-placeholder" aria-hidden="true"><span>EpiGuard</span></div>
+                </div>
+                <div class="project-body">
+                  <h3>EpiGuard</h3>
+                  <p>Dengue early-warning platform predicting risk up to 4 weeks ahead for Colombia's 32 departments. Six model families were benchmarked on 2022&ndash;2023 held-out data — <strong>SARIMAX was deployed over the slightly better SARIMA for one reason: it attributes each forecast to specific climate variables, making predictions interpretable</strong> for public-health decision-makers. Integrated SIVIGILA surveillance, NASA POWER meteorology and NOAA's ONI; weighted RMSE of 25.28 across four horizons.</p>
+                  <div class="tech-stack" aria-label="Technologies used">
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" loading="lazy" /><span>Next.js</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/typescript" alt="" loading="lazy" /><span>TypeScript</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/tailwindcss" alt="" loading="lazy" /><span>Tailwind CSS</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/supabase" alt="" loading="lazy" /><span>Supabase</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/react" alt="" loading="lazy" /><span>React</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/huggingface" alt="" loading="lazy" /><span>Hugging Face</span></div>
+                  </div>
+                  <div class="project-actions">
+                    <a href="https://epiguardapp.vercel.app" class="btn-sm demo" target="_blank" rel="noopener noreferrer"><span class="demo-icon-wrap" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>Live Demo<svg class="demo-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                    <a href="https://github.com/LucasRomero26/epiguard" class="btn-sm gh" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                  </div>
+                </div>
+              </article>
+
+            <article class="project-card">
+                <div class="project-preview">
+                  <img src="Granger.png" alt="Granger preview" loading="lazy" />
+                  <div class="project-preview-placeholder" aria-hidden="true"><span>Granger</span></div>
+                </div>
+                <div class="project-body">
+                  <h3>Granger</h3>
+                  <p>Full-stack project management app on MERN + end-to-end TypeScript. Beyond the Kanban UI, the real work is in the auth surface: <strong>refresh-token rotation with reuse detection</strong> (a stolen token revokes the entire chain), httpOnly + SameSite=None cookies tuned for the Vercel/Render cross-site split, and 4 rate-limit buckets backed by Upstash Redis. Covered by Playwright E2E + Vitest with mongodb-memory-server, and instrumented with Sentry & Better Stack across both surfaces.</p>
+                  <div class="tech-stack" aria-label="Technologies used">
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/react" alt="" loading="lazy" /><span>React</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/typescript" alt="" loading="lazy" /><span>TypeScript</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/mongodb" alt="" loading="lazy" /><span>MongoDB</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/express/ffffff" alt="" loading="lazy" /><span>Express</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/redis" alt="" loading="lazy" /><span>Redis</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/sentry" alt="" loading="lazy" /><span>Sentry</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/docker" alt="" loading="lazy" /><span>Docker</span></div>
+                  </div>
+                  <div class="project-actions">
+                    <a href="https://grangerproject.vercel.app/" class="btn-sm demo" target="_blank" rel="noopener noreferrer"><span class="demo-icon-wrap" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>Live Demo<svg class="demo-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                    <a href="https://github.com/LucasRomero26/granger" class="btn-sm gh" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                  </div>
+                </div>
+              </article>
+
+            <article class="project-card">
+                <div class="project-preview">
+                  <img src="SugarcaneLeaf.png" alt="SugarcaneLeaf preview" loading="lazy" />
+                  <div class="project-preview-placeholder" aria-hidden="true"><span>SugarcaneLeaf</span></div>
+                </div>
+                <div class="project-body">
+                  <h3>SugarcaneLeaf</h3>
+                  <p>Foliar disease segmentation for sugarcane. A <strong>YOLO26m-seg</strong> model trained on 6,000+ field images (5 disease classes) achieving mAP@0.5 of <strong>91.7%</strong>, exported to LiteRT and served <strong>entirely in the browser via WebGPU — no server roundtrip for inference, p99 of 47ms client-side</strong>. The FastAPI backend exists only to collect latency from every visitor into a ring buffer — observable MLOps, with a live p50/p99 dashboard and automatic WASM fallback on unsupported browsers.</p>
+                  <div class="tech-stack" aria-label="Technologies used">
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/react" alt="" loading="lazy" /><span>React</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/typescript" alt="" loading="lazy" /><span>TypeScript</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/webgpu" alt="" loading="lazy" /><span>WebGPU</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/pytorch" alt="" loading="lazy" /><span>PyTorch</span></div>
+                    <div class="tech-item"><img src="https://cdn.simpleicons.org/fastapi" alt="" loading="lazy" /><span>FastAPI</span></div>
+                  </div>
+                  <div class="project-actions">
+                    <a href="https://sugarcaneleaf.vercel.app" class="btn-sm demo" target="_blank" rel="noopener noreferrer"><span class="demo-icon-wrap" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>Live Demo<svg class="demo-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                    <a href="https://github.com/LucasRomero26/sugarcaneleaf" class="btn-sm gh" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                  </div>
+                </div>
+              </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT (compact) ============ -->
+  <section id="about">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="ghost" aria-hidden="true">About</span>
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">From the notebook<br />to production.</h2>
+      </div>
+      <div class="about-text">
+        <p>
+          I'm an AI/ML engineer and fullstack developer working at the
+          intersection of <strong>applied ML</strong> and
+          <strong>production software</strong>. I led software & firmware
+          R&D at the <strong>GIRSI</strong> research group &mdash;
+          shipping deep-learning models for automated container-code
+          recognition in maritime logistics &mdash; and fine-tuned and
+          evaluated LLMs as a Latam Coder at <strong>Outlier</strong>.
+        </p>
+        <p>
+          What I care about is the whole pipeline: dataset curation, model training,
+          inference optimization, the API that serves it, and the web app that puts
+          it in someone's hands. YOLO segmentation running in the browser via WebGPU
+          at 47ms p99, an epidemiological forecast pinned to interpretable climate
+          variables, a Telegram assistant orchestrating five tool-calling rounds
+          against NVIDIA NIM &mdash; that's where I do my best work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE (vertical timeline) ============ -->
+  <section id="experience">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="ghost" aria-hidden="true">Path</span>
+        <p class="section-label">Experience</p>
+        <h2 class="section-title">The road so far.</h2>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-period">Feb 2025 &mdash; Jun 2026</div>
+          <h3 class="tl-role">Software Development Lead</h3>
+          <div class="tl-company">GIRSI Research Group &middot; Universidad del Norte</div>
+          <p>
+            Lead the software & ML workstream for the maritime-logistics line:
+            deep-learning models for automated container-code recognition, plus the
+            end-to-end software and embedded firmware stack for the
+            &ldquo;Interactive Forests&rdquo; project. Mentor student researchers
+            across ML fundamentals, software architecture and R&D execution.
+          </p>
+          <div class="tags">
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Embedded Firmware</span>
+            <span class="tag">Mentorship</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-period">Jul 2025 &mdash; May 2026</div>
+          <h3 class="tl-role">Latam Coder &middot; Coding & AI Expertise</h3>
+          <div class="tl-company">Outlier &middot; Remote</div>
+          <p>
+            Contributed to the training, fine-tuning and evaluation of advanced AI
+            models through full-stack application development. Integrated Model
+            Context Protocol (MCP) and conversational-AI architectures to improve
+            context handling and response accuracy, and maintained quality with
+            test suites, bug triage and curated multimodal datasets via image
+            annotation and technical transcription.
+          </p>
+          <div class="tags">
+            <span class="tag">LLM Fine-tuning</span>
+            <span class="tag">MCP</span>
+            <span class="tag">Conversational AI</span>
+            <span class="tag">Data Curation</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-period">Jan 2023 &mdash; Dec 2025</div>
+          <h3 class="tl-role">Academic Monitor & Tutor</h3>
+          <div class="tl-company">Universidad del Norte &middot; Barranquilla, Colombia</div>
+          <p>
+            Tutor for 200+ students across Circuits I & II, Electronics I,
+            Electricity & Magnetism, Calculus I & III, Classical Mechanics
+            and Linear Algebra for the Departments of Physics & Geosciences,
+            Electrical & Electronics Engineering, and Basic Sciences. CRLA
+            Level&nbsp;I certified tutor (ITTPC).
+          </p>
+          <div class="tags">
+            <span class="tag">Technical Communication</span>
+            <span class="tag">CRLA Certified</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="ghost" aria-hidden="true">Skills</span>
+        <p class="section-label">Skills</p>
+        <h2 class="section-title">A dual-core skill set.</h2>
+      </div>
+
+      <div class="skills-category">
+        <h3>AI / Machine Learning</h3>
+        <div class="logo-grid">
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/python" alt="Python logo" loading="lazy" />
+            <span>Python</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/pytorch" alt="PyTorch logo" loading="lazy" />
+            <span>PyTorch</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/yolo" alt="YOLO logo" loading="lazy" />
+            <span>YOLO</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/opencv" alt="OpenCV logo" loading="lazy" />
+            <span>OpenCV</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face logo" loading="lazy" />
+            <span>Hugging Face</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://api.iconify.design/simple-icons:openai.svg?color=%23ffffff" alt="OpenAI logo" loading="lazy" />
+            <span>OpenAI</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/langchain" alt="LangChain logo" loading="lazy" />
+            <span>LangChain</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/nvidia" alt="NVIDIA NIM logo" loading="lazy" />
+            <span>NVIDIA NIM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-category">
+        <h3>Fullstack Engineering</h3>
+        <div class="logo-grid">
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/typescript" alt="TypeScript logo" loading="lazy" />
+            <span>TypeScript</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/react" alt="React logo" loading="lazy" />
+            <span>React</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js logo" loading="lazy" />
+            <span>Next.js</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/fastify/ffffff" alt="Fastify logo" loading="lazy" />
+            <span>Fastify</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/express/ffffff" alt="Express logo" loading="lazy" />
+            <span>Express</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/fastapi" alt="FastAPI logo" loading="lazy" />
+            <span>FastAPI</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/supabase" alt="Supabase logo" loading="lazy" />
+            <span>Supabase</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/mongodb" alt="MongoDB logo" loading="lazy" />
+            <span>MongoDB</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL logo" loading="lazy" />
+            <span>PostgreSQL</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/tailwindcss" alt="Tailwind CSS logo" loading="lazy" />
+            <span>Tailwind CSS</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/vite" alt="Vite logo" loading="lazy" />
+            <span>Vite</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/redis" alt="Redis logo" loading="lazy" />
+            <span>Redis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-category">
+        <h3>DevOps / Cloud / Tools</h3>
+        <div class="logo-grid">
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/docker" alt="Docker logo" loading="lazy" />
+            <span>Docker</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/githubactions" alt="GitHub Actions logo" loading="lazy" />
+            <span>GitHub Actions</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel logo" loading="lazy" />
+            <span>Vercel</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/render/ffffff" alt="Render logo" loading="lazy" />
+            <span>Render</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/sentry" alt="Sentry logo" loading="lazy" />
+            <span>Sentry</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/prometheus" alt="Prometheus logo" loading="lazy" />
+            <span>Prometheus</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/webgpu" alt="WebGPU logo" loading="lazy" />
+            <span>WebGPU</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://api.iconify.design/simple-icons:amazonaws.svg?color=%23ffffff" alt="AWS logo" loading="lazy" />
+            <span>AWS</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/huawei" alt="Huawei Cloud logo" loading="lazy" />
+            <span>Huawei Cloud</span>
+          </div>
+          <div class="logo-card">
+            <img src="https://cdn.simpleicons.org/cisco" alt="Cisco logo" loading="lazy" />
+            <span>Cisco</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-logo">L<span>R</span></div>
+    <p>&copy; 2026 Lucas Romero &mdash; Designed &amp; built with precision.</p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   WEBGL FLUID SIMULATION BACKGROUND
+   Real Navier-Stokes fluid solver running on the GPU, same architecture as
+   the toukoum/portfolio FluidCursor (based on Pavel Dobryakov's WebGL fluid
+   simulation, MIT): velocity + dye fields in double framebuffers, splat on
+   pointer movement, curl/vorticity confinement, Jacobi pressure solve and
+   semi-lagrangian advection with dissipation. Colors are kept monochrome to
+   match the design, and splats emitted over text are dimmed for readability.
+   ========================================================================== */
+(function () {
+  const canvas = document.getElementById('fluid-canvas');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const config = {
+    SIM_RESOLUTION: 128,
+    DYE_RESOLUTION: 1440,
+    DENSITY_DISSIPATION: 0.5,
+    VELOCITY_DISSIPATION: 3,
+    PRESSURE: 0.1,
+    PRESSURE_ITERATIONS: 20,
+    CURL: 3,
+    SPLAT_RADIUS: 0.2,
+    SPLAT_FORCE: 6000,
+    SHADING: true,
+    COLOR_UPDATE_SPEED: 10,
+  };
+
+  const pointer = {
+    texcoordX: 0, texcoordY: 0,
+    prevTexcoordX: 0, prevTexcoordY: 0,
+    deltaX: 0, deltaY: 0,
+    moved: false,
+    color: { r: 0.1, g: 0.1, b: 0.1 },
+  };
+
+  /* ---------- WebGL context ---------- */
+  const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
+  let gl = canvas.getContext('webgl2', params);
+  const isWebGL2 = !!gl;
+  if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+  if (!gl) return; // no WebGL: silently skip the effect
+
+  let halfFloat, supportLinearFiltering;
+  if (isWebGL2) {
+    gl.getExtension('EXT_color_buffer_float');
+    supportLinearFiltering = gl.getExtension('OES_texture_float_linear');
+  } else {
+    halfFloat = gl.getExtension('OES_texture_half_float');
+    supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
+  }
+  gl.clearColor(0, 0, 0, 1);
+
+  const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : (halfFloat && halfFloat.HALF_FLOAT_OES);
+
+  function supportRenderTextureFormat(internalFormat, format, type) {
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
+    const fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    return gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+  }
+
+  function getSupportedFormat(internalFormat, format, type) {
+    if (!supportRenderTextureFormat(internalFormat, format, type)) {
+      switch (internalFormat) {
+        case gl.R16F: return getSupportedFormat(gl.RG16F, gl.RG, type);
+        case gl.RG16F: return getSupportedFormat(gl.RGBA16F, gl.RGBA, type);
+        default: return null;
+      }
+    }
+    return { internalFormat, format };
+  }
+
+  let formatRGBA, formatRG, formatR;
+  if (isWebGL2) {
+    formatRGBA = getSupportedFormat(gl.RGBA16F, gl.RGBA, halfFloatTexType);
+    formatRG = getSupportedFormat(gl.RG16F, gl.RG, halfFloatTexType);
+    formatR = getSupportedFormat(gl.R16F, gl.RED, halfFloatTexType);
+  } else {
+    formatRGBA = getSupportedFormat(gl.RGBA, gl.RGBA, halfFloatTexType);
+    formatRG = formatRGBA;
+    formatR = formatRGBA;
+  }
+  if (!formatRGBA) return;
+
+  if (!supportLinearFiltering) {
+    config.DYE_RESOLUTION = 256;
+    config.SHADING = false;
+  }
+
+  /* ---------- Shader helpers ---------- */
+  function compileShader(type, source, keywords) {
+    if (keywords) {
+      let kw = '';
+      keywords.forEach(k => { kw += '#define ' + k + '\n'; });
+      source = kw + source;
+    }
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    return shader;
+  }
+
+  function createProgramFromShaders(vs, fs) {
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    return program;
+  }
+
+  function getUniforms(program) {
+    const uniforms = {};
+    const count = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+    for (let i = 0; i < count; i++) {
+      const name = gl.getActiveUniform(program, i).name;
+      uniforms[name] = gl.getUniformLocation(program, name);
+    }
+    return uniforms;
+  }
+
+  function Program(vs, fs) {
+    this.program = createProgramFromShaders(vs, fs);
+    this.uniforms = getUniforms(this.program);
+  }
+  Program.prototype.bind = function () { gl.useProgram(this.program); };
+
+  /* ---------- Shaders ---------- */
+  const baseVertexShader = compileShader(gl.VERTEX_SHADER, `
+    precision highp float;
+    attribute vec2 aPosition;
+    varying vec2 vUv;
+    varying vec2 vL;
+    varying vec2 vR;
+    varying vec2 vT;
+    varying vec2 vB;
+    uniform vec2 texelSize;
+    void main () {
+      vUv = aPosition * 0.5 + 0.5;
+      vL = vUv - vec2(texelSize.x, 0.0);
+      vR = vUv + vec2(texelSize.x, 0.0);
+      vT = vUv + vec2(0.0, texelSize.y);
+      vB = vUv - vec2(0.0, texelSize.y);
+      gl_Position = vec4(aPosition, 0.0, 1.0);
+    }
+  `);
+
+  const copyShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    uniform sampler2D uTexture;
+    void main () { gl_FragColor = texture2D(uTexture, vUv); }
+  `);
+
+  const clearShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    uniform sampler2D uTexture;
+    uniform float value;
+    void main () { gl_FragColor = value * texture2D(uTexture, vUv); }
+  `);
+
+  const displayShaderSource = `
+    precision highp float;
+    precision highp sampler2D;
+    varying vec2 vUv;
+    varying vec2 vL;
+    varying vec2 vR;
+    varying vec2 vT;
+    varying vec2 vB;
+    uniform sampler2D uTexture;
+    uniform vec2 texelSize;
+    void main () {
+      vec3 c = texture2D(uTexture, vUv).rgb;
+      #ifdef SHADING
+        vec3 lc = texture2D(uTexture, vL).rgb;
+        vec3 rc = texture2D(uTexture, vR).rgb;
+        vec3 tc = texture2D(uTexture, vT).rgb;
+        vec3 bc = texture2D(uTexture, vB).rgb;
+        float dx = length(rc) - length(lc);
+        float dy = length(tc) - length(bc);
+        vec3 n = normalize(vec3(dx, dy, length(texelSize)));
+        vec3 l = vec3(0.0, 0.0, 1.0);
+        float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
+        c *= diffuse;
+      #endif
+      float a = max(c.r, max(c.g, c.b));
+      gl_FragColor = vec4(c, a);
+    }
+  `;
+
+  const splatShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float;
+    precision highp sampler2D;
+    varying vec2 vUv;
+    uniform sampler2D uTarget;
+    uniform float aspectRatio;
+    uniform vec3 color;
+    uniform vec2 point;
+    uniform float radius;
+    void main () {
+      vec2 p = vUv - point.xy;
+      p.x *= aspectRatio;
+      vec3 splat = exp(-dot(p, p) / radius) * color;
+      vec3 base = texture2D(uTarget, vUv).xyz;
+      gl_FragColor = vec4(base + splat, 1.0);
+    }
+  `);
+
+  const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float;
+    precision highp sampler2D;
+    varying vec2 vUv;
+    uniform sampler2D uVelocity;
+    uniform sampler2D uSource;
+    uniform vec2 texelSize;
+    uniform vec2 dyeTexelSize;
+    uniform float dt;
+    uniform float dissipation;
+    vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
+      vec2 st = uv / tsize - 0.5;
+      vec2 iuv = floor(st);
+      vec2 fuv = fract(st);
+      vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
+      vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
+      vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
+      vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
+      return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
+    }
+    void main () {
+      #ifdef MANUAL_FILTERING
+        vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+        vec4 result = bilerp(uSource, coord, dyeTexelSize);
+      #else
+        vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+        vec4 result = texture2D(uSource, coord);
+      #endif
+      float decay = 1.0 + dissipation * dt;
+      gl_FragColor = result / decay;
+    }
+  `, supportLinearFiltering ? null : ['MANUAL_FILTERING']);
+
+  const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    varying highp vec2 vL;
+    varying highp vec2 vR;
+    varying highp vec2 vT;
+    varying highp vec2 vB;
+    uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uVelocity, vL).x;
+      float R = texture2D(uVelocity, vR).x;
+      float T = texture2D(uVelocity, vT).y;
+      float B = texture2D(uVelocity, vB).y;
+      vec2 C = texture2D(uVelocity, vUv).xy;
+      if (vL.x < 0.0) { L = -C.x; }
+      if (vR.x > 1.0) { R = -C.x; }
+      if (vT.y > 1.0) { T = -C.y; }
+      if (vB.y < 0.0) { B = -C.y; }
+      float div = 0.5 * (R - L + T - B);
+      gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+    }
+  `);
+
+  const curlShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    varying highp vec2 vL;
+    varying highp vec2 vR;
+    varying highp vec2 vT;
+    varying highp vec2 vB;
+    uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uVelocity, vL).y;
+      float R = texture2D(uVelocity, vR).y;
+      float T = texture2D(uVelocity, vT).x;
+      float B = texture2D(uVelocity, vB).x;
+      float vorticity = R - L - T + B;
+      gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
+    }
+  `);
+
+  const vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision highp float;
+    precision highp sampler2D;
+    varying vec2 vUv;
+    varying vec2 vL;
+    varying vec2 vR;
+    varying vec2 vT;
+    varying vec2 vB;
+    uniform sampler2D uVelocity;
+    uniform sampler2D uCurl;
+    uniform float curl;
+    uniform float dt;
+    void main () {
+      float L = texture2D(uCurl, vL).x;
+      float R = texture2D(uCurl, vR).x;
+      float T = texture2D(uCurl, vT).x;
+      float B = texture2D(uCurl, vB).x;
+      float C = texture2D(uCurl, vUv).x;
+      vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
+      force /= length(force) + 0.0001;
+      force *= curl * C;
+      force.y *= -1.0;
+      vec2 velocity = texture2D(uVelocity, vUv).xy;
+      velocity += force * dt;
+      velocity = min(max(velocity, -1000.0), 1000.0);
+      gl_FragColor = vec4(velocity, 0.0, 1.0);
+    }
+  `);
+
+  const pressureShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    varying highp vec2 vL;
+    varying highp vec2 vR;
+    varying highp vec2 vT;
+    varying highp vec2 vB;
+    uniform sampler2D uPressure;
+    uniform sampler2D uDivergence;
+    void main () {
+      float L = texture2D(uPressure, vL).x;
+      float R = texture2D(uPressure, vR).x;
+      float T = texture2D(uPressure, vT).x;
+      float B = texture2D(uPressure, vB).x;
+      float C = texture2D(uPressure, vUv).x;
+      float divergence = texture2D(uDivergence, vUv).x;
+      float pressure = (L + R + B + T - divergence) * 0.25;
+      gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+    }
+  `);
+
+  const gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, `
+    precision mediump float;
+    precision mediump sampler2D;
+    varying highp vec2 vUv;
+    varying highp vec2 vL;
+    varying highp vec2 vR;
+    varying highp vec2 vT;
+    varying highp vec2 vB;
+    uniform sampler2D uPressure;
+    uniform sampler2D uVelocity;
+    void main () {
+      float L = texture2D(uPressure, vL).x;
+      float R = texture2D(uPressure, vR).x;
+      float T = texture2D(uPressure, vT).x;
+      float B = texture2D(uPressure, vB).x;
+      vec2 velocity = texture2D(uVelocity, vUv).xy;
+      velocity.xy -= vec2(R - L, T - B);
+      gl_FragColor = vec4(velocity, 0.0, 1.0);
+    }
+  `);
+
+  /* ---------- Fullscreen quad ---------- */
+  const blit = (() => {
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(0);
+    return (target) => {
+      if (target == null) {
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      } else {
+        gl.viewport(0, 0, target.width, target.height);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+      }
+      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+    };
+  })();
+
+  /* ---------- Framebuffers ---------- */
+  function createFBO(w, h, internalFormat, format, type, param) {
+    gl.activeTexture(gl.TEXTURE0);
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
+
+    const fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    gl.viewport(0, 0, w, h);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    return {
+      texture, fbo, width: w, height: h,
+      texelSizeX: 1 / w, texelSizeY: 1 / h,
+      attach(id) {
+        gl.activeTexture(gl.TEXTURE0 + id);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        return id;
+      },
+    };
+  }
+
+  function createDoubleFBO(w, h, internalFormat, format, type, param) {
+    let fbo1 = createFBO(w, h, internalFormat, format, type, param);
+    let fbo2 = createFBO(w, h, internalFormat, format, type, param);
+    return {
+      width: w, height: h,
+      texelSizeX: fbo1.texelSizeX, texelSizeY: fbo1.texelSizeY,
+      get read() { return fbo1; },
+      set read(v) { fbo1 = v; },
+      get write() { return fbo2; },
+      set write(v) { fbo2 = v; },
+      swap() { const t = fbo1; fbo1 = fbo2; fbo2 = t; },
+    };
+  }
+
+  function resizeFBO(target, w, h, internalFormat, format, type, param) {
+    const newFBO = createFBO(w, h, internalFormat, format, type, param);
+    copyProgram.bind();
+    gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
+    blit(newFBO);
+    return newFBO;
+  }
+
+  function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
+    if (target.width === w && target.height === h) return target;
+    target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+    target.write = createFBO(w, h, internalFormat, format, type, param);
+    target.width = w;
+    target.height = h;
+    target.texelSizeX = 1 / w;
+    target.texelSizeY = 1 / h;
+    return target;
+  }
+
+  /* ---------- Programs ---------- */
+  const copyProgram = new Program(baseVertexShader, copyShader);
+  const clearProgram = new Program(baseVertexShader, clearShader);
+  const splatProgram = new Program(baseVertexShader, splatShader);
+  const advectionProgram = new Program(baseVertexShader, advectionShader);
+  const divergenceProgram = new Program(baseVertexShader, divergenceShader);
+  const curlProgram = new Program(baseVertexShader, curlShader);
+  const vorticityProgram = new Program(baseVertexShader, vorticityShader);
+  const pressureProgram = new Program(baseVertexShader, pressureShader);
+  const gradientSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
+  const displayProgram = new Program(
+    baseVertexShader,
+    compileShader(gl.FRAGMENT_SHADER, displayShaderSource, config.SHADING ? ['SHADING'] : null)
+  );
+
+  let dye, velocity, divergence, curl, pressure;
+
+  function getResolution(resolution) {
+    let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+    if (aspectRatio < 1) aspectRatio = 1 / aspectRatio;
+    const min = Math.round(resolution);
+    const max = Math.round(resolution * aspectRatio);
+    return gl.drawingBufferWidth > gl.drawingBufferHeight
+      ? { width: max, height: min }
+      : { width: min, height: max };
+  }
+
+  function initFramebuffers() {
+    const simRes = getResolution(config.SIM_RESOLUTION);
+    const dyeRes = getResolution(config.DYE_RESOLUTION);
+    const texType = halfFloatTexType;
+    const rgba = formatRGBA, rg = formatRG, r = formatR;
+    const filtering = supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+
+    gl.disable(gl.BLEND);
+
+    dye = dye
+      ? resizeDoubleFBO(dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering)
+      : createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+
+    velocity = velocity
+      ? resizeDoubleFBO(velocity, simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering)
+      : createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+
+    divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+  }
+
+  /* ---------- Simulation step ---------- */
+  function step(dt) {
+    gl.disable(gl.BLEND);
+
+    curlProgram.bind();
+    gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+    blit(curl);
+
+    vorticityProgram.bind();
+    gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+    gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+    gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+    gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+    blit(velocity.write);
+    velocity.swap();
+
+    divergenceProgram.bind();
+    gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
+    blit(divergence);
+
+    clearProgram.bind();
+    gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
+    gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+    blit(pressure.write);
+    pressure.swap();
+
+    pressureProgram.bind();
+    gl.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+    for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
+      gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
+      blit(pressure.write);
+      pressure.swap();
+    }
+
+    gradientSubtractProgram.bind();
+    gl.uniform2f(gradientSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform1i(gradientSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
+    gl.uniform1i(gradientSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
+    blit(velocity.write);
+    velocity.swap();
+
+    advectionProgram.bind();
+    gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    if (!supportLinearFiltering) {
+      gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+    }
+    const velocityId = velocity.read.attach(0);
+    gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
+    gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
+    gl.uniform1f(advectionProgram.uniforms.dt, dt);
+    gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
+    blit(velocity.write);
+    velocity.swap();
+
+    if (!supportLinearFiltering) {
+      gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
+    }
+    gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
+    gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
+    gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
+    blit(dye.write);
+    dye.swap();
+  }
+
+  function render() {
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.BLEND);
+    displayProgram.bind();
+    if (config.SHADING) {
+      gl.uniform2f(displayProgram.uniforms.texelSize, 1 / gl.drawingBufferWidth, 1 / gl.drawingBufferHeight);
+    }
+    gl.uniform1i(displayProgram.uniforms.uTexture, dye.read.attach(0));
+    blit(null);
+  }
+
+  /* ---------- Splats ---------- */
+  function correctRadius(radius) {
+    const aspectRatio = canvas.width / canvas.height;
+    if (aspectRatio > 1) radius *= aspectRatio;
+    return radius;
+  }
+
+  function splat(x, y, dx, dy, color) {
+    splatProgram.bind();
+    gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
+    gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
+    gl.uniform2f(splatProgram.uniforms.point, x, y);
+    gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0);
+    gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100));
+    blit(velocity.write);
+    velocity.swap();
+
+    gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
+    gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+    blit(dye.write);
+    dye.swap();
+  }
+
+  function splatPointer(p) {
+    const dx = p.deltaX * config.SPLAT_FORCE;
+    const dy = p.deltaY * config.SPLAT_FORCE;
+    splat(p.texcoordX, p.texcoordY, dx, dy, p.color);
+  }
+
+  function clickSplat(p) {
+    const c = generateColor();
+    c.r *= 4; c.g *= 4; c.b *= 4;
+    const dx = 10 * (Math.random() - 0.5);
+    const dy = 30 * (Math.random() - 0.5);
+    splat(p.texcoordX, p.texcoordY, dx, dy, c);
+  }
+
+  /* Monochrome ink: white at low intensity to match the grayscale design.
+     Intensity guard dims splats emitted over text/images for readability. */
+  let contentDim = 1;
+  const TEXT_SELECTOR = 'h1, h2, h3, p, a, span, li, img, svg, button, article, .logo-card, .tl-item, .tags';
+  const NEAR_SELECTOR = '.container, .hero';
+
+  function generateColor() {
+    const v = (0.07 + Math.random() * 0.06) * contentDim;
+    return { r: v, g: v, b: v };
+  }
+
+  /* ---------- Update loop ---------- */
+  let lastUpdateTime = Date.now();
+  let colorUpdateTimer = 0;
+
+  function calcDeltaTime() {
+    const now = Date.now();
+    let dt = (now - lastUpdateTime) / 1000;
+    dt = Math.min(dt, 0.016666);
+    lastUpdateTime = now;
+    return dt;
+  }
+
+  function scaleByPixelRatio(input) {
+    return Math.floor(input * (window.devicePixelRatio || 1));
+  }
+
+  function resizeCanvas() {
+    const width = scaleByPixelRatio(canvas.clientWidth);
+    const height = scaleByPixelRatio(canvas.clientHeight);
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+      return true;
+    }
+    return false;
+  }
+
+  function wrap(value, min, max) {
+    const range = max - min;
+    if (range === 0) return min;
+    return ((value - min) % range) + min;
+  }
+
+  function updateColors(dt) {
+    colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
+    if (colorUpdateTimer >= 1) {
+      colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
+      pointer.color = generateColor();
+    }
+  }
+
+  function applyInputs() {
+    if (pointer.moved) {
+      pointer.moved = false;
+      splatPointer(pointer);
+    }
+  }
+
+  function update() {
+    const dt = calcDeltaTime();
+    if (resizeCanvas()) initFramebuffers();
+    updateColors(dt);
+    applyInputs();
+    step(dt);
+    render();
+    requestAnimationFrame(update);
+  }
+
+  /* ---------- Pointer handling ---------- */
+  function correctDeltaX(delta) {
+    const aspectRatio = canvas.width / canvas.height;
+    if (aspectRatio < 1) delta *= aspectRatio;
+    return delta;
+  }
+
+  function correctDeltaY(delta) {
+    const aspectRatio = canvas.width / canvas.height;
+    if (aspectRatio > 1) delta /= aspectRatio;
+    return delta;
+  }
+
+  function updatePointerMoveData(posX, posY) {
+    pointer.prevTexcoordX = pointer.texcoordX;
+    pointer.prevTexcoordY = pointer.texcoordY;
+    pointer.texcoordX = posX / canvas.width;
+    pointer.texcoordY = 1 - posY / canvas.height;
+    pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+    pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+    pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+  }
+
+  function updateContentDim(target) {
+    if (target && target.closest) {
+      if (target.closest(TEXT_SELECTOR)) contentDim = 0.15;
+      else if (target.closest(NEAR_SELECTOR)) contentDim = 0.45;
+      else contentDim = 1;
+    } else {
+      contentDim = 1;
+    }
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    updateContentDim(e.target);
+    updatePointerMoveData(scaleByPixelRatio(e.clientX), scaleByPixelRatio(e.clientY));
+  });
+
+  window.addEventListener('mousedown', (e) => {
+    updateContentDim(e.target);
+    pointer.texcoordX = scaleByPixelRatio(e.clientX) / canvas.width;
+    pointer.texcoordY = 1 - scaleByPixelRatio(e.clientY) / canvas.height;
+    clickSplat(pointer);
+  });
+
+  window.addEventListener('touchstart', (e) => {
+    const t = e.targetTouches[0];
+    if (!t) return;
+    pointer.texcoordX = scaleByPixelRatio(t.clientX) / canvas.width;
+    pointer.texcoordY = 1 - scaleByPixelRatio(t.clientY) / canvas.height;
+    pointer.prevTexcoordX = pointer.texcoordX;
+    pointer.prevTexcoordY = pointer.texcoordY;
+    pointer.color = generateColor();
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    const t = e.targetTouches[0];
+    if (!t) return;
+    updatePointerMoveData(scaleByPixelRatio(t.clientX), scaleByPixelRatio(t.clientY));
+  }, { passive: true });
+
+  /* ---------- Boot ---------- */
+  resizeCanvas();
+  pointer.color = generateColor();
+  initFramebuffers();
+  update();
+})();
+
+/* ==========================================================================
+   SCROLL REVEAL - sections fade in as they enter the viewport
+   ========================================================================== */
+(function () {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+})();
+
+
+
+/* ==========================================================================
+   PROJECT CARD SPOTLIGHT - spotlight gradient follows the cursor per card
+   ========================================================================== */
+document.querySelectorAll('.project-card').forEach((card) => {
+  card.addEventListener('pointermove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+  });
+});
+
+/* ==========================================================================
+   MOBILE MENU - hamburger toggle, closes on link tap
+   ========================================================================== */
+(function () {
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.classList.toggle('open', open);
+  }
+
+  toggle.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+})();
+
+/* ==========================================================================
+   NAV ACTIVE SECTION - highlight current section link on scroll
+   ========================================================================== */
+(function () {
+  const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height'), 10) || 72;
+  const sectionIds = ['projects', 'about', 'experience', 'skills'];
+  const links = document.querySelectorAll(
+    '.nav-links a[href^="#"]:not(.btn-cv), .mobile-menu a[href^="#"]:not(.btn-cv)'
+  );
+
+  function setActive(id) {
+    links.forEach((link) => {
+      const isActive = id && link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function updateActive() {
+    const scrollY = window.scrollY + navHeight + 80;
+    let current = '';
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) current = id;
+    });
+
+    setActive(current);
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+})();
+
+/* ==========================================================================
+   NAV - deepen glass background slightly after scrolling past the hero top
+   ========================================================================== */
+(function () {
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(5, 5, 5, 0.55)'
+      : 'rgba(5, 5, 5, 0.35)';
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
