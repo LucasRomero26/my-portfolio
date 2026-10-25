@@ -1,0 +1,34 @@
+# Lucas Romero
+
+> Portfolio of Lucas Romero Mercado, AI/ML Engineer and Fullstack Developer based in Barranquilla, Colombia (open to remote). Electrical & Electronics Engineering student at Universidad del Norte, focused on taking machine learning from the notebook to production: computer vision, LLM applications, and scalable Python and TypeScript web systems.
+
+The site is a single static page in English. All content is in the HTML; no JavaScript is needed to read it.
+
+## Pages
+
+- [Home](https://lucasromero.dev/): Projects, about, experience and skills.
+- [CV (PDF)](https://lucasromero.dev/Lucas_Romero_CV.pdf): Full resume.
+
+## Projects
+
+- [SubestaLab](https://subestalab.vercel.app): Educational simulator for the maintenance switching procedures of 10 electrical-substation bus configurations, built for Universidad del Norte's Electrical Substations course. A custom electrical engine computes energization by connectivity and flags arcs and short circuits; a validator replays all 30 scenarios through it. Includes guided and practice modes, a free-form design lab and an AI tutor grounded in the course knowledge base. Stack: Astro, TypeScript, Anthropic API, Node.js, Vercel. Source: https://github.com/LucasRomero26/subestalab
+- [EpiGuard](https://epiguardapp.vercel.app): Dengue early-warning platform forecasting risk up to 4 weeks ahead for Colombia's 32 departments. Six model families benchmarked; SARIMAX deployed for interpretable, climate-attributed forecasts (weighted RMSE 25.28). Data: SIVIGILA, NASA POWER, NOAA ONI. Stack: Next.js, TypeScript, Tailwind CSS, Supabase, React, Hugging Face. Source: https://github.com/LucasRomero26/epiguard
+- [Granger](https://grangerproject.vercel.app/): Full-stack project management app on MERN with end-to-end TypeScript. Refresh-token rotation with reuse detection, cross-site cookie hardening, Redis-backed rate limiting, Playwright and Vitest tests, Sentry and Better Stack monitoring. Source: https://github.com/LucasRomero26/granger
+- [SugarcaneLeaf](https://sugarcaneleaf.vercel.app): Foliar disease segmentation for sugarcane with a YOLO26m-seg model (mAP@0.5 of 91.7% on 6,000+ images, 5 classes), served entirely in the browser via WebGPU (p99 of 47 ms) with a WASM fallback and a live latency dashboard. Stack: React, TypeScript, WebGPU, PyTorch, FastAPI. Source: https://github.com/LucasRomero26/sugarcaneleaf
+
+## Experience
+
+- Software Development Lead, GIRSI Research Group, Universidad del Norte (Feb 2025 to Jun 2026): deep-learning models for automated container-code recognition in maritime logistics, plus software and embedded firmware for the "Interactive Forests" project; mentored student researchers.
+- Latam Coder, Coding & AI Expertise, Outlier, remote (Jul 2025 to May 2026): training, fine-tuning and evaluation of AI models; MCP and conversational-AI integrations; test suites and curated multimodal datasets.
+- Academic Monitor & Tutor, Universidad del Norte (Jan 2023 to Dec 2025): tutored 200+ students in circuits, electronics, physics, calculus and linear algebra; CRLA Level I certified tutor.
+
+## Skills
+
+- AI / Machine Learning: Python, PyTorch, YOLO, OpenCV, Hugging Face, OpenAI, LangChain, NVIDIA NIM.
+- Fullstack: TypeScript, React, Next.js, Fastify, Express, FastAPI, Supabase, MongoDB, PostgreSQL, Tailwind CSS, Vite, Redis.
+- DevOps / Cloud / Tools: Docker, GitHub Actions, Vercel, Render, Sentry, Prometheus, WebGPU, AWS, Huawei Cloud, Cisco.
+
+## Contact
+
+- GitHub: https://github.com/LucasRomero26
+- LinkedIn: https://www.linkedin.com/in/lucasromerom/
